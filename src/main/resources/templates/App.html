@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Citizen Details</title>
+    <link rel="stylesheet"
+ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+ integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+ crossorigin="anonymous">
+</head>
+<body>
+
+
+<h1>Citizen Details</h1>
+    <form th:action="@{/citizen-details/search}" th:object="${citizen}" method="post">
+        <label for="planName">Plan Name:</label>
+        
+		<select id="planName"  th:field="*{planName}">
+            <option value="">Select</option>
+            <option th:each="name : ${planNames}" th:value="${name}" th:text="${name}" ></option>
+        </select>
+
+        <label for="planStatus">Plan Status:</label>
+        <select id="planStatus"  th:field="*{planStatus}">
+            <option value="">Select</option>
+            <option th:each="status : ${planStatuses}" th:value="${status}" th:text="${status}" ></option>
+        </select>
+
+        <label for="gender">Gender:</label>
+        <select id="gender"  th:field="*{gender}">
+            <option value="">Select</option>
+            <option value="Male" >Male</option>
+            <option value="Female" >Female</option>
+            <option value="Other" >Other</option>
+        </select>
+
+        <label for="planStartDate">Plan Start Date:</label>
+        <input type="date" id="planStartDate" name="planStartDate" th:field="*{planStartDate}" />
+
+        <label for="planEndDate">Plan End Date:</label>
+        <input type="date" id="planEndDate" name="planEndDate" th:field="*{planEndDate}" />
+     
+       <div class="Container" >
+        <a class="btn btn-primary" href="/Appp">Reset</a>
+        
+       
+	<button type="submit" class="btn btn-primary">Search</button>
+		</div>
+		 
+        
+    </form>
+<br>
+<br>
+
+<div class="Container" >
+
+	 <a class="btn btn-primary" href="excel" >Excel </a> 
+	<a class="btn btn-primary" href="pdf"> Pdf </a>
+</div>
+
+
+    <h2>Citizen Details</h2>
+    
+	<table class="table table-striped">
+        <thead >
+            <tr>
+                <th>Citizen ID</th>
+                <th>citizenName</th>
+                <th>Plan Name</th>
+                <th>Plan Status</th>
+                <th>Gender</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Benefit Amount</th>
+                <th>Denial Reason</th>
+                <th>Terminated Date</th>
+                <th>Termination Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="citizen : ${citizens}">
+                <td th:text="${citizen.citizenId}"></td>
+                <td th:text="${citizen.citizenName}"></td>
+                <td th:text="${citizen.planName}"></td>
+                <td th:text="${citizen.planStatus}"></td>
+                <td th:text="${citizen.gender}"></td>
+                <td th:text="${citizen.planStartDate}"></td>
+                <td th:text="${citizen.planEndDate}"></td>
+                <td th:text="${citizen.benefitAmount}"></td>
+                <td th:text="${citizen.denialReason}"></td>
+                <td th:text="${citizen.terminatedDate}"></td>
+                <td th:text="${citizen.terminationReason}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div th:if="${message}">
+   		 <p style="text-align:center" th:text="${message}"></p>
+	</div>
+    
+</body>
+</html>
